@@ -260,9 +260,9 @@ public class Rules {
 
             // Unique checks for player 1 and player 2
             if(p1Turn) {
-                left = board.theBoard[(board.boardMap[col - 1]) - 1][col - 1].player == 1 ? board.theBoard[(board.boardMap[col - 1]) - 1][col - 1].verticalNumConnected : 0;
+                left = board.theBoard[(board.boardMap[col - 1]) - 1][col - 1].player == 1 ? board.theBoard[(board.boardMap[col - 1]) - 1][col - 1].getVerticalNumConnected() : 0;
             } else {
-                left = board.theBoard[(board.boardMap[col - 1]) - 1][col - 1].player == -1 ? board.theBoard[(board.boardMap[col - 1]) - 1][col - 1].verticalNumConnected : 0;
+                left = board.theBoard[(board.boardMap[col - 1]) - 1][col - 1].player == -1 ? board.theBoard[(board.boardMap[col - 1]) - 1][col - 1].getVerticalNumConnected() : 0;
             }
         } catch(Exception e) {
             left = 0;
@@ -273,16 +273,16 @@ public class Rules {
 
             // Unique checks for player 1 and player 2
             if(p1Turn) {
-                right = board.theBoard[(board.boardMap[col - 1]) + 1][col - 1].player == 1 ? board.theBoard[(board.boardMap[col - 1]) + 1][col - 1].verticalNumConnected : 0;
+                right = board.theBoard[(board.boardMap[col - 1]) + 1][col - 1].player == 1 ? board.theBoard[(board.boardMap[col - 1]) + 1][col - 1].getVerticalNumConnected() : 0;
             } else {
-                right = board.theBoard[(board.boardMap[col - 1]) + 1][col - 1].player == -1 ? board.theBoard[(board.boardMap[col - 1]) + 1][col - 1].verticalNumConnected : 0;
+                right = board.theBoard[(board.boardMap[col - 1]) + 1][col - 1].player == -1 ? board.theBoard[(board.boardMap[col - 1]) + 1][col - 1].getVerticalNumConnected() : 0;
             }
         } catch(Exception e) {
             right = 0;
         }
 
         // The length of the vertical sequence at the current position is equal to the length of the left sequence plus the right sequence plus 1 (for the current piece)
-        board.theBoard[(board.boardMap[col - 1])][col - 1].verticalNumConnected = Math.max(left + right + 1, 1);
+        board.theBoard[(board.boardMap[col - 1])][col - 1].setVerticalNumConnected(Math.max(left + right + 1, 1));
 
         propagateValueVertically(board.theBoard[(board.boardMap[col - 1])][col - 1].getPlayer(), 
         board.theBoard[(board.boardMap[col - 1])][col - 1].getVerticalNumConnected(), 
@@ -336,9 +336,9 @@ public class Rules {
 
             // Unique checks for P1 and P2
             if(p1Turn) {
-                left = board.theBoard[(board.boardMap[col - 1]) - 1][col - 2].player == 1 ? board.theBoard[(board.boardMap[col - 1]) - 1][col - 2].leftDiagonalNumConnected : 0;
+                left = board.theBoard[(board.boardMap[col - 1]) - 1][col - 2].player == 1 ? board.theBoard[(board.boardMap[col - 1]) - 1][col - 2].getLeftDiagonalNumConnected() : 0;
             } else {
-                left = board.theBoard[(board.boardMap[col - 1]) - 1][col - 2].player == -1 ? board.theBoard[(board.boardMap[col - 1]) - 1][col - 2].leftDiagonalNumConnected : 0;
+                left = board.theBoard[(board.boardMap[col - 1]) - 1][col - 2].player == -1 ? board.theBoard[(board.boardMap[col - 1]) - 1][col - 2].getLeftDiagonalNumConnected() : 0;
             }
         } catch(Exception e) {
             left = 0;
@@ -349,16 +349,16 @@ public class Rules {
 
             // Unique checks for P1 and P2
             if(p1Turn) {
-                right = board.theBoard[(board.boardMap[col - 1]) + 1][col].player == 1 ? board.theBoard[(board.boardMap[col - 1]) + 1][col].leftDiagonalNumConnected : 0;
+                right = board.theBoard[(board.boardMap[col - 1]) + 1][col].player == 1 ? board.theBoard[(board.boardMap[col - 1]) + 1][col].getLeftDiagonalNumConnected() : 0;
             } else {
-                right = board.theBoard[(board.boardMap[col - 1]) + 1][col].player == -1 ? board.theBoard[(board.boardMap[col - 1]) + 1][col].leftDiagonalNumConnected : 0;
+                right = board.theBoard[(board.boardMap[col - 1]) + 1][col].player == -1 ? board.theBoard[(board.boardMap[col - 1]) + 1][col].getLeftDiagonalNumConnected() : 0;
             }
         } catch(Exception e) {
             right = 0;
         }
 
         // The length of the left diagonal sequence at the current position is equal to the length of the left sequence plus the right sequence plus 1 (for the current piece)
-        board.theBoard[(board.boardMap[col - 1])][col - 1].leftDiagonalNumConnected = Math.max(left + right + 1, 1);
+        board.theBoard[(board.boardMap[col - 1])][col - 1].setLeftDiagonalNumConnected(Math.max(left + right + 1, 1));
 
         propagateValueLeftDiagonally(board.theBoard[(board.boardMap[col - 1])][col - 1].getPlayer(), 
         board.theBoard[(board.boardMap[col - 1])][col - 1].getLeftDiagonalNumConnected(), 
@@ -411,9 +411,9 @@ public class Rules {
 
             // Unique checks for P1 and P2
             if(p1Turn) {
-                left = board.theBoard[(board.boardMap[col - 1]) + 1][col - 2].player == 1 ? board.theBoard[(board.boardMap[col - 1]) + 1][col - 2].rightDiagonalNumConnected : 0;
+                left = board.theBoard[(board.boardMap[col - 1]) + 1][col - 2].player == 1 ? board.theBoard[(board.boardMap[col - 1]) + 1][col - 2].getRightDiagonalNumConnected() : 0;
             } else {
-                left = board.theBoard[(board.boardMap[col - 1]) + 1][col - 2].player == -1 ? board.theBoard[(board.boardMap[col - 1]) + 1][col - 2].rightDiagonalNumConnected : 0;
+                left = board.theBoard[(board.boardMap[col - 1]) + 1][col - 2].player == -1 ? board.theBoard[(board.boardMap[col - 1]) + 1][col - 2].getRightDiagonalNumConnected() : 0;
             }
         } catch(Exception e) {
             left = 0;
@@ -424,16 +424,16 @@ public class Rules {
             
             // Unique checks for P1 and P2
             if(p1Turn) {
-                right = board.theBoard[(board.boardMap[col - 1]) - 1][col].player == 1 ? board.theBoard[(board.boardMap[col - 1]) - 1][col].rightDiagonalNumConnected : 0;
+                right = board.theBoard[(board.boardMap[col - 1]) - 1][col].player == 1 ? board.theBoard[(board.boardMap[col - 1]) - 1][col].getRightDiagonalNumConnected() : 0;
             } else {
-                right = board.theBoard[(board.boardMap[col - 1]) - 1][col].player == -1 ? board.theBoard[(board.boardMap[col - 1]) - 1][col].rightDiagonalNumConnected : 0;
+                right = board.theBoard[(board.boardMap[col - 1]) - 1][col].player == -1 ? board.theBoard[(board.boardMap[col - 1]) - 1][col].getRightDiagonalNumConnected() : 0;
             }
         } catch(Exception e) {
             right = 0;
         }
 
         // The length of the right horizontal sequence at the current position is equal to the length of the left sequence plus the right sequence plus 1 (for the current piece)
-        board.theBoard[(board.boardMap[col - 1])][col - 1].rightDiagonalNumConnected = Math.max(left + right + 1, 1);
+        board.theBoard[(board.boardMap[col - 1])][col - 1].setRightDiagonalNumConnected(Math.max(left + right + 1, 1));
 
         propagateValueRightDiagonally(board.theBoard[(board.boardMap[col - 1])][col - 1].getPlayer(), 
         board.theBoard[(board.boardMap[col - 1])][col - 1].getRightDiagonalNumConnected(), 
