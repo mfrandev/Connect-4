@@ -60,8 +60,8 @@ public class Board {
         for(int i = 1; i < 8; i++) {
 
             // Debugging
-            System.out.print(" " + i + "  ");
-            // System.out.print(i + " ");
+            // System.out.print(" " + i + "  ");
+            System.out.print(i + " ");
         }
 
         System.out.println();
@@ -74,24 +74,24 @@ public class Board {
                 if(theBoard[i][j].player == 0) {
 
                     //Debugging
-                    System.out.print(" .," + theBoard[i][j].getMaxNumConnected());
-                    // System.out.print(". " );
+                    // System.out.print(" .," + theBoard[i][j].getMaxNumConnected());
+                    System.out.print(". " );
                 } 
                 
                 // If Player 1 placed a piece in a given spot, print an X
                 else if(theBoard[i][j].player == 1) {
 
                     //Debugging
-                    System.out.print(" X," + theBoard[i][j].getMaxNumConnected());
-                    // System.out.print("X ");
+                    // System.out.print(" X," + theBoard[i][j].getMaxNumConnected());
+                    System.out.print("X ");
                 } 
                 
                 // If Player 2 placed a piece in a given spot, print an O
                 else if(theBoard[i][j].player == -1) {
 
                     //Debugging
-                    System.out.print(" O," + theBoard[i][j].getMaxNumConnected());
-                    // System.out.print("O ");
+                    // System.out.print(" O," + theBoard[i][j].getMaxNumConnected());
+                    System.out.print("O ");
                 }
             }
             System.out.println();
