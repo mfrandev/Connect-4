@@ -203,20 +203,23 @@ public class Rules {
             right = 0;
         }
 
-        // The length of the sequence at the current position is equal to the length of the left sequence plus the right sequence plus 1 (for the current piece)
+        // The length of the horizontal sequence at the current position is equal to the length of the left sequence plus the right sequence plus 1 (for the current piece)
         board.theBoard[(board.boardMap[col - 1])][col - 1].horizontalNumConnected = Math.max(left + right + 1, 1);
 
     }
 
     /**
-     * 
+     * Computes the length of the vertical sequence at the current position  
      */
     public void computeVerticalAxis(int col) {
 
         int left = 0;
         int right = 0;
 
+        // Get the length for the sequence above the current position
         try {
+
+            // Unique checks for player 1 and player 2
             if(p1Turn) {
                 left = board.theBoard[(board.boardMap[col - 1]) - 1][col - 1].player == 1 ? board.theBoard[(board.boardMap[col - 1]) - 1][col - 1].verticalNumConnected : 0;
             } else {
@@ -226,7 +229,10 @@ public class Rules {
             left = 0;
         }
 
+        // Get the length for the sequence below the current position
         try {
+
+            // Unique checks for player 1 and player 2
             if(p1Turn) {
                 right = board.theBoard[(board.boardMap[col - 1]) + 1][col - 1].player == 1 ? board.theBoard[(board.boardMap[col - 1]) + 1][col - 1].verticalNumConnected : 0;
             } else {
@@ -236,19 +242,23 @@ public class Rules {
             right = 0;
         }
 
+        // The length of the vertical sequence at the current position is equal to the length of the left sequence plus the right sequence plus 1 (for the current piece)
         board.theBoard[(board.boardMap[col - 1])][col - 1].verticalNumConnected = Math.max(left + right + 1, 1);
 
     }
 
     /**
-     * 
+     * Computes the left diagonal sequence for the current position
      */
     public void computeLeftDiagonal(int col) {
 
         int left = 0;
         int right = 0;
 
+        // Get the length for the diagonal sequence above and to the left of the current position
         try {
+
+            // Unique checks for P1 and P2
             if(p1Turn) {
                 left = board.theBoard[(board.boardMap[col - 1]) - 1][col - 2].player == 1 ? board.theBoard[(board.boardMap[col - 1]) - 1][col - 2].leftDiagonalNumConnected : 0;
             } else {
@@ -257,7 +267,11 @@ public class Rules {
         } catch(Exception e) {
             left = 0;
         }
+
+        // Get the length for the diagonal sequence below and to the right of the current position
         try {
+
+            // Unique checks for P1 and P2
             if(p1Turn) {
                 right = board.theBoard[(board.boardMap[col - 1]) + 1][col].player == 1 ? board.theBoard[(board.boardMap[col - 1]) + 1][col].leftDiagonalNumConnected : 0;
             } else {
@@ -267,20 +281,24 @@ public class Rules {
             right = 0;
         }
 
+        // The length of the left diagonal sequence at the current position is equal to the length of the left sequence plus the right sequence plus 1 (for the current piece)
         board.theBoard[(board.boardMap[col - 1])][col - 1].leftDiagonalNumConnected = Math.max(left + right + 1, 1);
 
 
     }
 
     /**
-     * 
+     * Computes the right diagonal sequence for the current position
      */
     public void computeRightDiagonal(int col) {
 
         int left = 0;
         int right = 0;
 
+        // Get the length of the sequence below and to the left of the current position
         try {
+            
+            // Unique checks for P1 and P2
             if(p1Turn) {
                 left = board.theBoard[(board.boardMap[col - 1]) - 1][col].player == 1 ? board.theBoard[(board.boardMap[col - 1]) - 1][col].rightDiagonalNumConnected : 0;
             } else {
@@ -289,7 +307,11 @@ public class Rules {
         } catch(Exception e) {
             left = 0;
         }
+
+        // Get the length of the sequence above and to the right of the current position
         try {
+
+            // Unique checks for P1 and P2
             if(p1Turn) {
                 right = board.theBoard[(board.boardMap[col - 1]) + 1][col - 2].player == 1 ? board.theBoard[(board.boardMap[col - 1]) + 1][col - 2].rightDiagonalNumConnected : 0;
             } else {
@@ -299,6 +321,7 @@ public class Rules {
             right = 0;
         }
 
+        // The length of the right horizontal sequence at the current position is equal to the length of the left sequence plus the right sequence plus 1 (for the current piece)
         board.theBoard[(board.boardMap[col - 1])][col - 1].rightDiagonalNumConnected = Math.max(left + right + 1, 1);
 
     }
