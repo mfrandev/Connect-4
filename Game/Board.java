@@ -1,3 +1,4 @@
+package Game;
 public class Board {
 
     // Save the board as a 2D array of Piece objects

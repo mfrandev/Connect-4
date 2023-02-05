@@ -1,3 +1,4 @@
+package Game;
 public class Piece {
 
     // Represents whether the space is empty, if player 1 occupies the space, or player 2 occupies the space

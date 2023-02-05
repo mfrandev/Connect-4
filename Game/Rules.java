@@ -1,3 +1,4 @@
+package Game;
 import java.util.Scanner;
 
 public class Rules {
@@ -168,9 +169,7 @@ public class Rules {
         computeRightDiagonal(col);
 
         // Check if the player has "connected 4"
-        boolean isOver = board.theBoard[(board.boardMap[col - 1]--)][col - 1].getMaxNumConnected() >= 4;
-
-        return isOver;
+        return board.theBoard[(board.boardMap[col - 1]--)][col - 1].getMaxNumConnected() >= 4;
         
     }
 
