@@ -60,7 +60,7 @@ public class Piece {
      * Stores the size of the vertical sequence that this piece belongs to 
      */
     public void setVerticalNumConnected(int verticalNumConnected) {
-        this.veritcalNumConnected = veritcalNumConnected;
+        this.verticalNumConnected = verticalNumConnected;
     }
 
     /**
