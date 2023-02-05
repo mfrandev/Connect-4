@@ -156,9 +156,9 @@ public class Rules {
 
         // Tell the board which player placed the piece
         if(p1Turn) {    
-            board.theBoard[(board.boardMap[col - 1])][col - 1].player = 1;
+            board.theBoard[(board.boardMap[col - 1])][col - 1].setPlayer(1);
         } else {
-            board.theBoard[(board.boardMap[col - 1])][col - 1].player = -1;
+            board.theBoard[(board.boardMap[col - 1])][col - 1].setPlayer(-1);
         }
 
         // Determine how the piece fits in the contenxt of the other piece sequences on the board
@@ -260,9 +260,9 @@ public class Rules {
 
             // Unique checks for player 1 and player 2
             if(p1Turn) {
-                left = board.theBoard[(board.boardMap[col - 1]) - 1][col - 1].player == 1 ? board.theBoard[(board.boardMap[col - 1]) - 1][col - 1].getVerticalNumConnected() : 0;
+                left = board.theBoard[(board.boardMap[col - 1]) - 1][col - 1].getPlayer() == 1 ? board.theBoard[(board.boardMap[col - 1]) - 1][col - 1].getVerticalNumConnected() : 0;
             } else {
-                left = board.theBoard[(board.boardMap[col - 1]) - 1][col - 1].player == -1 ? board.theBoard[(board.boardMap[col - 1]) - 1][col - 1].getVerticalNumConnected() : 0;
+                left = board.theBoard[(board.boardMap[col - 1]) - 1][col - 1].getPlayer() == -1 ? board.theBoard[(board.boardMap[col - 1]) - 1][col - 1].getVerticalNumConnected() : 0;
             }
         } catch(Exception e) {
             left = 0;
@@ -273,9 +273,9 @@ public class Rules {
 
             // Unique checks for player 1 and player 2
             if(p1Turn) {
-                right = board.theBoard[(board.boardMap[col - 1]) + 1][col - 1].player == 1 ? board.theBoard[(board.boardMap[col - 1]) + 1][col - 1].getVerticalNumConnected() : 0;
+                right = board.theBoard[(board.boardMap[col - 1]) + 1][col - 1].getPlayer() == 1 ? board.theBoard[(board.boardMap[col - 1]) + 1][col - 1].getVerticalNumConnected() : 0;
             } else {
-                right = board.theBoard[(board.boardMap[col - 1]) + 1][col - 1].player == -1 ? board.theBoard[(board.boardMap[col - 1]) + 1][col - 1].getVerticalNumConnected() : 0;
+                right = board.theBoard[(board.boardMap[col - 1]) + 1][col - 1].getPlayer() == -1 ? board.theBoard[(board.boardMap[col - 1]) + 1][col - 1].getVerticalNumConnected() : 0;
             }
         } catch(Exception e) {
             right = 0;
@@ -336,9 +336,9 @@ public class Rules {
 
             // Unique checks for P1 and P2
             if(p1Turn) {
-                left = board.theBoard[(board.boardMap[col - 1]) - 1][col - 2].player == 1 ? board.theBoard[(board.boardMap[col - 1]) - 1][col - 2].getLeftDiagonalNumConnected() : 0;
+                left = board.theBoard[(board.boardMap[col - 1]) - 1][col - 2].getPlayer() == 1 ? board.theBoard[(board.boardMap[col - 1]) - 1][col - 2].getLeftDiagonalNumConnected() : 0;
             } else {
-                left = board.theBoard[(board.boardMap[col - 1]) - 1][col - 2].player == -1 ? board.theBoard[(board.boardMap[col - 1]) - 1][col - 2].getLeftDiagonalNumConnected() : 0;
+                left = board.theBoard[(board.boardMap[col - 1]) - 1][col - 2].getPlayer() == -1 ? board.theBoard[(board.boardMap[col - 1]) - 1][col - 2].getLeftDiagonalNumConnected() : 0;
             }
         } catch(Exception e) {
             left = 0;
@@ -349,9 +349,9 @@ public class Rules {
 
             // Unique checks for P1 and P2
             if(p1Turn) {
-                right = board.theBoard[(board.boardMap[col - 1]) + 1][col].player == 1 ? board.theBoard[(board.boardMap[col - 1]) + 1][col].getLeftDiagonalNumConnected() : 0;
+                right = board.theBoard[(board.boardMap[col - 1]) + 1][col].getPlayer() == 1 ? board.theBoard[(board.boardMap[col - 1]) + 1][col].getLeftDiagonalNumConnected() : 0;
             } else {
-                right = board.theBoard[(board.boardMap[col - 1]) + 1][col].player == -1 ? board.theBoard[(board.boardMap[col - 1]) + 1][col].getLeftDiagonalNumConnected() : 0;
+                right = board.theBoard[(board.boardMap[col - 1]) + 1][col].getPlayer() == -1 ? board.theBoard[(board.boardMap[col - 1]) + 1][col].getLeftDiagonalNumConnected() : 0;
             }
         } catch(Exception e) {
             right = 0;
@@ -411,9 +411,9 @@ public class Rules {
 
             // Unique checks for P1 and P2
             if(p1Turn) {
-                left = board.theBoard[(board.boardMap[col - 1]) + 1][col - 2].player == 1 ? board.theBoard[(board.boardMap[col - 1]) + 1][col - 2].getRightDiagonalNumConnected() : 0;
+                left = board.theBoard[(board.boardMap[col - 1]) + 1][col - 2].getPlayer() == 1 ? board.theBoard[(board.boardMap[col - 1]) + 1][col - 2].getRightDiagonalNumConnected() : 0;
             } else {
-                left = board.theBoard[(board.boardMap[col - 1]) + 1][col - 2].player == -1 ? board.theBoard[(board.boardMap[col - 1]) + 1][col - 2].getRightDiagonalNumConnected() : 0;
+                left = board.theBoard[(board.boardMap[col - 1]) + 1][col - 2].getPlayer() == -1 ? board.theBoard[(board.boardMap[col - 1]) + 1][col - 2].getRightDiagonalNumConnected() : 0;
             }
         } catch(Exception e) {
             left = 0;
@@ -424,9 +424,9 @@ public class Rules {
             
             // Unique checks for P1 and P2
             if(p1Turn) {
-                right = board.theBoard[(board.boardMap[col - 1]) - 1][col].player == 1 ? board.theBoard[(board.boardMap[col - 1]) - 1][col].getRightDiagonalNumConnected() : 0;
+                right = board.theBoard[(board.boardMap[col - 1]) - 1][col].getPlayer() == 1 ? board.theBoard[(board.boardMap[col - 1]) - 1][col].getRightDiagonalNumConnected() : 0;
             } else {
-                right = board.theBoard[(board.boardMap[col - 1]) - 1][col].player == -1 ? board.theBoard[(board.boardMap[col - 1]) - 1][col].getRightDiagonalNumConnected() : 0;
+                right = board.theBoard[(board.boardMap[col - 1]) - 1][col].getPlayer() == -1 ? board.theBoard[(board.boardMap[col - 1]) - 1][col].getRightDiagonalNumConnected() : 0;
             }
         } catch(Exception e) {
             right = 0;

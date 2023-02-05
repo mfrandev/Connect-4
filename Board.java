@@ -71,7 +71,7 @@ public class Board {
             for(int j = 0; j < theBoard[i].length; j++) {
 
                 // If space is empty, print a point
-                if(theBoard[i][j].player == 0) {
+                if(theBoard[i][j].getPlayer() == 0) {
 
                     //Debugging
                     // System.out.print(" .," + theBoard[i][j].getMaxNumConnected());
@@ -79,7 +79,7 @@ public class Board {
                 } 
                 
                 // If Player 1 placed a piece in a given spot, print an X
-                else if(theBoard[i][j].player == 1) {
+                else if(theBoard[i][j].getPlayer() == 1) {
 
                     //Debugging
                     // System.out.print(" X," + theBoard[i][j].getMaxNumConnected());
@@ -87,7 +87,7 @@ public class Board {
                 } 
                 
                 // If Player 2 placed a piece in a given spot, print an O
-                else if(theBoard[i][j].player == -1) {
+                else if(theBoard[i][j].getPlayer() == -1) {
 
                     //Debugging
                     // System.out.print(" O," + theBoard[i][j].getMaxNumConnected());
