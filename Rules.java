@@ -154,6 +154,13 @@ public class Rules {
      */
     public boolean placePiece(int col) {
 
+        // Tell the board which player placed the piece
+        if(p1Turn) {    
+            board.theBoard[(board.boardMap[col - 1])][col - 1].player = 1;
+        } else {
+            board.theBoard[(board.boardMap[col - 1])][col - 1].player = -1;
+        }
+
         // Determine how the piece fits in the contenxt of the other piece sequences on the board
         computeHorizontalAxis(col);
         computeVerticalAxis(col);
@@ -161,14 +168,7 @@ public class Rules {
         computeRightDiagonal(col);
 
         // Check if the player has "connected 4"
-        boolean isOver = board.theBoard[(board.boardMap[col - 1])][col - 1].getMaxNumConnected() >= 4;
-
-        // Tell the board which player placed the piece
-        if(p1Turn) {    
-            board.theBoard[(board.boardMap[col - 1])--][col - 1].player = 1;
-        } else {
-            board.theBoard[(board.boardMap[col - 1])--][col - 1].player = -1;
-        }
+        boolean isOver = board.theBoard[(board.boardMap[col - 1]--)][col - 1].getMaxNumConnected() >= 4;
 
         return isOver;
         
@@ -229,6 +229,7 @@ public class Rules {
             try {
                 if(board.theBoard[board.boardMap[colIndex]][colIndex - (i + 1)].getPlayer() == player && i < left) {
                     board.theBoard[board.boardMap[colIndex]][colIndex - (i + 1)].setHorizontalNumConnected(value);
+                    // System.out.println("Horizontal sequence length at position [" + colIndex + "][" + (colIndex - (i + 1)) + "] is set to " + board.theBoard[board.boardMap[colIndex]][colIndex - (i + 1)].getHorizontalNumConnected());
                 }
             } catch(Exception e) {
                 left = -1;
@@ -238,6 +239,7 @@ public class Rules {
             try {
                 if(board.theBoard[board.boardMap[colIndex]][colIndex + (i + 1)].getPlayer() == player && i < right){
                     board.theBoard[board.boardMap[colIndex]][colIndex + (i + 1)].setHorizontalNumConnected(value);
+                    // System.out.println("Horizontal sequence length at position [" + colIndex + "][" + (colIndex + (i + 1)) + "] is set to " + board.theBoard[board.boardMap[colIndex]][colIndex + (i + 1)].getHorizontalNumConnected());
                 }
             } catch(Exception e) {
                 right = -1;
@@ -302,6 +304,7 @@ public class Rules {
             try {
                 if(board.theBoard[(board.boardMap[colIndex]) - (i + 1)][colIndex].getPlayer() == player && i < above) {
                     board.theBoard[(board.boardMap[colIndex]) - (i + 1)][colIndex].setVerticalNumConnected(value);
+                    // System.out.println("Vertical sequence length at position [" + ((board.boardMap[colIndex]) - (i + 1)) + "][" + colIndex + "] is set to " + board.theBoard[board.boardMap[colIndex]][colIndex - (i + 1)].getVerticalNumConnected());
                 }
             }
             catch(Exception e) {
@@ -312,6 +315,7 @@ public class Rules {
             try { 
                 if(board.theBoard[(board.boardMap[colIndex]) + (i + 1)][colIndex].getPlayer() == player && i < below) {
                     board.theBoard[(board.boardMap[colIndex]) + (i + 1)][colIndex].setVerticalNumConnected(value);
+                    // System.out.println("Vertical sequence length at position [" + ((board.boardMap[colIndex]) + (i + 1)) + "][" + colIndex + "] is set to " + board.theBoard[board.boardMap[colIndex]][colIndex + (i + 1)].getVerticalNumConnected());
                 }   
             } catch(Exception e) {
                 below = -1;
@@ -376,6 +380,7 @@ public class Rules {
             try {
                 if(board.theBoard[(board.boardMap[colIndex]) - (i + 1)][colIndex - (i + 1)].getPlayer() == player && i < leftAbove) {
                     board.theBoard[(board.boardMap[colIndex]) - (i + 1)][colIndex - (i + 1)].setLeftDiagonalNumConnected(value);
+                    // System.out.println("Left diagonal sequence length at position [" + ((board.boardMap[colIndex]) - (i + 1)) + "][" + (colIndex - (i + 1)) + "] is set to " + board.theBoard[board.boardMap[(board.boardMap[colIndex]) - (i + 1)]][colIndex - (i + 1)].getLeftDiagonalNumConnected());
                 }
             } catch(Exception e) {
                 leftAbove = -1;
@@ -385,6 +390,7 @@ public class Rules {
             try { 
                 if(board.theBoard[(board.boardMap[colIndex]) + (i + 1)][colIndex + (i + 1)].getPlayer() == player && i < rightBelow){
                     board.theBoard[(board.boardMap[colIndex]) + (i + 1)][colIndex + (i + 1)].setLeftDiagonalNumConnected(value);
+                    // System.out.println("Left diagonal sequence length at position [" + ((board.boardMap[colIndex]) + (i + 1)) + "][" + (colIndex + (i + 1)) + "] is set to " + board.theBoard[board.boardMap[(board.boardMap[colIndex]) + (i + 1)]][colIndex + (i + 1)].getLeftDiagonalNumConnected());
                 }
             } catch(Exception e) {
                 rightBelow = -1;
@@ -449,6 +455,7 @@ public class Rules {
             try {
                 if(board.theBoard[(board.boardMap[colIndex]) + (i + 1)][colIndex - (i + 1)].getPlayer() == player && i < leftBelow) {
                     board.theBoard[(board.boardMap[colIndex]) + (i + 1)][colIndex - (i + 1)].setRightDiagonalNumConnected(value);
+                    // System.out.println("Right diagonal sequence length at position [" + ((board.boardMap[colIndex]) + (i + 1)) + "][" + (colIndex - (i + 1)) + "] is set to " + board.theBoard[board.boardMap[(board.boardMap[colIndex]) + (i + 1)]][colIndex - (i + 1)].getRightDiagonalNumConnected());
                 }
             } catch(Exception e) {
                 leftBelow = -1;
@@ -458,6 +465,7 @@ public class Rules {
             try {
                 if(board.theBoard[(board.boardMap[colIndex]) - (i + 1)][colIndex + (i + 1)].getPlayer() == player && i < rightAbove){
                     board.theBoard[(board.boardMap[colIndex]) - (i + 1)][colIndex + (i + 1)].setRightDiagonalNumConnected(value);
+                    // System.out.println("Right diagonal sequence length at position [" + ((board.boardMap[colIndex]) - (i + 1)) + "][" + (colIndex + (i + 1)) + "] is set to " + board.theBoard[board.boardMap[(board.boardMap[colIndex]) - (i + 1)]][colIndex + (i + 1)].getRightDiagonalNumConnected());
                 }
             } catch(Exception e) {
                 rightAbove = -1;
