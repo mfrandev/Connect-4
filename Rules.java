@@ -154,6 +154,13 @@ public class Rules {
      */
     public boolean placePiece(int col) {
 
+        // Tell the board which player placed the piece
+        if(p1Turn) {    
+            board.theBoard[(board.boardMap[col - 1])][col - 1].player = 1;
+        } else {
+            board.theBoard[(board.boardMap[col - 1])][col - 1].player = -1;
+        }
+
         // Determine how the piece fits in the contenxt of the other piece sequences on the board
         computeHorizontalAxis(col);
         computeVerticalAxis(col);
@@ -161,14 +168,7 @@ public class Rules {
         computeRightDiagonal(col);
 
         // Check if the player has "connected 4"
-        boolean isOver = board.theBoard[(board.boardMap[col - 1])][col - 1].getMaxNumConnected() >= 4;
-
-        // Tell the board which player placed the piece
-        if(p1Turn) {    
-            board.theBoard[(board.boardMap[col - 1])--][col - 1].player = 1;
-        } else {
-            board.theBoard[(board.boardMap[col - 1])--][col - 1].player = -1;
-        }
+        boolean isOver = board.theBoard[(board.boardMap[col - 1]--)][col - 1].getMaxNumConnected() >= 4;
 
         return isOver;
         
@@ -224,6 +224,8 @@ public class Rules {
 
         // Loop while there are still values to update either to the left or right of the piece placed
         for(int i = 0; i < left || i < right; i++) {
+
+            System.out.println("i: " + i + ", right: " + right + ", left: " + left + ", player: " + player);
 
             // If there is a piece on the left, update it
             try {
