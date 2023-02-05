@@ -57,7 +57,13 @@ public class Rules {
                 stalemate = true;
             }
 
+            // It is the next player's turn
+            p1Turn = !p1Turn;
+
         }
+
+        // It is the next player's turn
+        p1Turn = !p1Turn;
 
         // Notify the players who has won the game and that the game is over
         if(!stalemate) {
@@ -72,9 +78,6 @@ public class Rules {
             board.printBoard();
             System.out.println("\nStalemate!\n");
         }
-
-        // It is the next player's turn
-        p1Turn = !p1Turn;
 
     }
 
