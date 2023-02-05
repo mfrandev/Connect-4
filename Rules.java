@@ -184,9 +184,9 @@ public class Rules {
 
             // Determines if looking for pieces for player 1 or 2
             if(p1Turn) {
-                left = board.theBoard[(board.boardMap[col - 1])][col - 2].player == 1 ? board.theBoard[(board.boardMap[col - 1])][col - 2].horizontalNumConnected : 0;
+                left = board.theBoard[(board.boardMap[col - 1])][col - 2].getPlayer() == 1 ? board.theBoard[(board.boardMap[col - 1])][col - 2].getHorizontalNumConnected() : 0;
             } else {
-                left = board.theBoard[(board.boardMap[col - 1])][col - 2].player == -1 ? board.theBoard[(board.boardMap[col - 1])][col - 2].horizontalNumConnected : 0;
+                left = board.theBoard[(board.boardMap[col - 1])][col - 2].getPlayer() == -1 ? board.theBoard[(board.boardMap[col - 1])][col - 2].getHorizontalNumConnected() : 0;
             }
         } catch(Exception e) {
             left = 0;
@@ -195,17 +195,43 @@ public class Rules {
         // Get the length of the sequence on the right
         try {
             if(p1Turn) {
-                right = board.theBoard[(board.boardMap[col - 1])][col].player == 1 ? board.theBoard[(board.boardMap[col - 1])][col].horizontalNumConnected : 0;
+                right = board.theBoard[(board.boardMap[col - 1])][col].getPlayer() == 1 ? board.theBoard[(board.boardMap[col - 1])][col].getHorizontalNumConnected() : 0;
             } else {
-                right = board.theBoard[(board.boardMap[col - 1])][col].player == -1 ? board.theBoard[(board.boardMap[col - 1])][col].horizontalNumConnected : 0;
+                right = board.theBoard[(board.boardMap[col - 1])][col].getPlayer() == -1 ? board.theBoard[(board.boardMap[col - 1])][col].getHorizontalNumConnected() : 0;
             }
         } catch(Exception e) {
             right = 0;
         }
 
         // The length of the horizontal sequence at the current position is equal to the length of the left sequence plus the right sequence plus 1 (for the current piece)
-        board.theBoard[(board.boardMap[col - 1])][col - 1].horizontalNumConnected = Math.max(left + right + 1, 1);
+        board.theBoard[(board.boardMap[col - 1])][col - 1].setHorizontalNumConnected(Math.max(left + right + 1, 1));
 
+        propagateValueHorizontally(board.theBoard[(board.boardMap[col - 1])][col - 1].getPlayer(), 
+        board.theBoard[(board.boardMap[col - 1])][col - 1].getHorizontalNumConnected(), 
+        left,
+        right,
+        col - 1);
+
+    }
+
+    /**
+     * Updates all pieces in a horizontal sequence with the full sequence length
+     */
+    public void propagateValueHorizontally(int player, int value, int left, int right, int colIndex) {
+
+        // Loop while there are still values to update either to the left or right of the piece placed
+        for(int i = 0; i < left || i < right; i++) {
+
+            // If there is a piece on the left, update it
+            if(board.theBoard[board.boardMap[colIndex]][colIndex - (i + 1)].getPlayer() == player && i < left) {
+                board.theBoard[board.boardMap[colIndex]][colIndex - (i + 1)].setHorizontalNumConnected(value);
+            }
+
+            // If there is a piece on the right, update it 
+            if(board.theBoard[board.boardMap[colIndex]][colIndex + (i + 1)].getPlayer() == player && i < right){
+                board.theBoard[board.boardMap[colIndex]][colIndex + (i + 1)].setHorizontalNumConnected(value);
+            }
+        }
     }
 
     /**
@@ -245,6 +271,32 @@ public class Rules {
         // The length of the vertical sequence at the current position is equal to the length of the left sequence plus the right sequence plus 1 (for the current piece)
         board.theBoard[(board.boardMap[col - 1])][col - 1].verticalNumConnected = Math.max(left + right + 1, 1);
 
+        propagateValueVertically(board.theBoard[(board.boardMap[col - 1])][col - 1].getPlayer(), 
+        board.theBoard[(board.boardMap[col - 1])][col - 1].getVerticalNumConnected(), 
+        left,
+        right,
+        col - 1);
+
+    }
+
+    /**
+     * Updates all pieces in a vertical sequence with the full sequence length
+     */
+    public void propagateValueVertically(int player, int value, int above, int below, int colIndex) {
+
+        // Loop while there are still values to update either above or below the piece placed
+        for(int i = 0; i < above || i < below; i++) {
+
+            // If there is a piece above, update it
+            if(board.theBoard[(board.boardMap[colIndex]) - (i + 1)][colIndex].getPlayer() == player && i < above) {
+                board.theBoard[(board.boardMap[colIndex]) - (i + 1)][colIndex].setVerticalNumConnected(value);
+            }
+
+            // If there is a piece below, update it 
+            if(board.theBoard[(board.boardMap[colIndex]) + (i + 1)][colIndex].getPlayer() == player && i < below){
+                board.theBoard[(board.boardMap[colIndex]) + (i + 1)][colIndex].setVerticalNumConnected(value);
+            }
+        }
     }
 
     /**
@@ -284,7 +336,32 @@ public class Rules {
         // The length of the left diagonal sequence at the current position is equal to the length of the left sequence plus the right sequence plus 1 (for the current piece)
         board.theBoard[(board.boardMap[col - 1])][col - 1].leftDiagonalNumConnected = Math.max(left + right + 1, 1);
 
+        propagateValueLeftDiagonally(board.theBoard[(board.boardMap[col - 1])][col - 1].getPlayer(), 
+        board.theBoard[(board.boardMap[col - 1])][col - 1].getLeftDiagonalNumConnected(), 
+        left,
+        right,
+        col - 1);
 
+    }
+
+    /**
+     * Updates all pieces in a left diagonal sequence with the full sequence length
+     */
+    public void propagateValueLeftDiagonally(int player, int value, int leftAbove, int rightBelow, int colIndex) {
+
+        // Loop while there are still values to update either above and to the left or below and to the right of the piece placed
+        for(int i = 0; i < leftAbove || i < rightBelow; i++) {
+
+            // If there is a piece above and left, update it
+            if(board.theBoard[(board.boardMap[colIndex]) - (i + 1)][colIndex - (i + 1)].getPlayer() == player && i < leftAbove) {
+                board.theBoard[(board.boardMap[colIndex]) - (i + 1)][colIndex - (i + 1)].setLeftDiagonalNumConnected(value);
+            }
+
+            // If there is a piece below and right, update it 
+            if(board.theBoard[(board.boardMap[colIndex]) + (i + 1)][colIndex + (i + 1)].getPlayer() == player && i < rightBelow){
+                board.theBoard[(board.boardMap[colIndex]) + (i + 1)][colIndex + (i + 1)].setLeftDiagonalNumConnected(value);
+            }
+        }
     }
 
     /**
@@ -297,12 +374,12 @@ public class Rules {
 
         // Get the length of the sequence below and to the left of the current position
         try {
-            
+
             // Unique checks for P1 and P2
             if(p1Turn) {
-                left = board.theBoard[(board.boardMap[col - 1]) - 1][col].player == 1 ? board.theBoard[(board.boardMap[col - 1]) - 1][col].rightDiagonalNumConnected : 0;
+                left = board.theBoard[(board.boardMap[col - 1]) + 1][col - 2].player == 1 ? board.theBoard[(board.boardMap[col - 1]) + 1][col - 2].rightDiagonalNumConnected : 0;
             } else {
-                left = board.theBoard[(board.boardMap[col - 1]) - 1][col].player == -1 ? board.theBoard[(board.boardMap[col - 1]) - 1][col].rightDiagonalNumConnected : 0;
+                left = board.theBoard[(board.boardMap[col - 1]) + 1][col - 2].player == -1 ? board.theBoard[(board.boardMap[col - 1]) + 1][col - 2].rightDiagonalNumConnected : 0;
             }
         } catch(Exception e) {
             left = 0;
@@ -310,12 +387,12 @@ public class Rules {
 
         // Get the length of the sequence above and to the right of the current position
         try {
-
+            
             // Unique checks for P1 and P2
             if(p1Turn) {
-                right = board.theBoard[(board.boardMap[col - 1]) + 1][col - 2].player == 1 ? board.theBoard[(board.boardMap[col - 1]) + 1][col - 2].rightDiagonalNumConnected : 0;
+                right = board.theBoard[(board.boardMap[col - 1]) - 1][col].player == 1 ? board.theBoard[(board.boardMap[col - 1]) - 1][col].rightDiagonalNumConnected : 0;
             } else {
-                right = board.theBoard[(board.boardMap[col - 1]) + 1][col - 2].player == -1 ? board.theBoard[(board.boardMap[col - 1]) + 1][col - 2].rightDiagonalNumConnected : 0;
+                right = board.theBoard[(board.boardMap[col - 1]) - 1][col].player == -1 ? board.theBoard[(board.boardMap[col - 1]) - 1][col].rightDiagonalNumConnected : 0;
             }
         } catch(Exception e) {
             right = 0;
@@ -324,6 +401,32 @@ public class Rules {
         // The length of the right horizontal sequence at the current position is equal to the length of the left sequence plus the right sequence plus 1 (for the current piece)
         board.theBoard[(board.boardMap[col - 1])][col - 1].rightDiagonalNumConnected = Math.max(left + right + 1, 1);
 
+        propagateValueRightDiagonally(board.theBoard[(board.boardMap[col - 1])][col - 1].getPlayer(), 
+        board.theBoard[(board.boardMap[col - 1])][col - 1].getRightDiagonalNumConnected(), 
+        left,
+        right,
+        col - 1);
+
+    }
+
+    /**
+     * Updates all pieces in a right diagonal sequence with the full sequence length
+     */
+    public void propagateValueRightDiagonally(int player, int value, int leftBelow, int rightAbove, int colIndex) {
+
+        // Loop while there are still values to update either below and to the left or above and to the right of the piece placed
+        for(int i = 0; i < leftBelow || i < rightAbove; i++) {
+
+            // If there is a piece below and left, update it
+            if(board.theBoard[(board.boardMap[colIndex]) + (i + 1)][colIndex - (i + 1)].getPlayer() == player && i < leftBelow) {
+                board.theBoard[(board.boardMap[colIndex]) + (i + 1)][colIndex - (i + 1)].setRightDiagonalNumConnected(value);
+            }
+
+            // If there is a piece above and right, update it 
+            if(board.theBoard[(board.boardMap[colIndex]) - (i + 1)][colIndex + (i + 1)].getPlayer() == player && i < rightAbove){
+                board.theBoard[(board.boardMap[colIndex]) - (i + 1)][colIndex + (i + 1)].setRightDiagonalNumConnected(value);
+            }
+        }
     }
 
 }      
