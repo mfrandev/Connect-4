@@ -1,19 +1,19 @@
 public class Piece {
 
     // Represents whether the space is empty, if player 1 occupies the space, or player 2 occupies the space
-    int player;
+    private int player;
 
     // Store the size of the horizontal sequence that this piece belongs to 
-    int horizontalNumConnected;
+    private int horizontalNumConnected;
 
     // Store the size of the vertical sequence that this piece belongs to 
-    int verticalNumConnected;
+    private int verticalNumConnected;
 
     // Store the size of the left diagonal sequence that this piece belongs to 
-    int leftDiagonalNumConnected;
+    private int leftDiagonalNumConnected;
 
     // Store the size of the right diagonal sequence that this piece belongs to 
-    int rightDiagonalNumConnected;
+    private int rightDiagonalNumConnected;
 
     public Piece(int player) {
 
