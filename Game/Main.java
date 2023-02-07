@@ -19,6 +19,12 @@ public class Main {
         // Too many arguemnts
         if(args.length > 2) {
 
+            // Initialize the set of valid <option>=<value> pairs
+            HashMap<String, String[]> validOptions = new HashMap<>();
+
+            // These are the valid pairs (not case sensitive)
+            validOptions.put("ai", new String[] {"basic"});
+
             System.out.println("Please enter between 0 and 2 arguments (inclusive, corresponds to 1 arg per player)\nValid options and values are as follows:");
             printOptions(validOptions);
             System.exit(0);
