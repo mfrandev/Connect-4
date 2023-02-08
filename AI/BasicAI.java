@@ -1,6 +1,5 @@
 package AI;
 
-import java.util.HashSet;
 import java.util.Random;
 
 import Game.Board;

@@ -16,17 +16,17 @@ public class Main {
         // Create a rules object 
         Rules r = new Rules(b);
 
+        // Initialize the set of valid <option>=<value> pairs
+        HashMap<String, String[]> validOptions = new HashMap<>();
+
+        // These are the valid pairs (not case sensitive)
+        validOptions.put("ai", new String[] {"basic"});
+
         // If user specified any parameters
         // Too many arguemnts
         if(args.length > 2) {
 
-            // Initialize the set of valid <option>=<value> pairs
-            Map<String, String[]> validOptions = new HashMap<>();
-
-            // These are the valid pairs (not case sensitive)
-            validOptions.put("ai", new String[] {"basic"});
-
-            System.out.println("Please enter between 0 and 2 arguments (inclusive, corresponds to 1 arg per player)\nValid options and values are as follows:");
+            System.out.println("\nPlease enter between 0 and 2 arguments (inclusive, corresponds to 1 arg per player)\nValid options and values are as follows:");
             printOptions(validOptions);
             System.exit(0);
 
@@ -35,19 +35,7 @@ public class Main {
         // At least 1 other player is not a local human player
         else if(args.length > 0 && args.length <= 2) {
 
-            // Initialize the set of valid <option>=<value> pairs
-            HashMap<String, String[]> validOptions = new HashMap<>();
-
-            // These are the valid pairs (not case sensitive)
-            validOptions.put("ai", new String[] {"basic"});
-
             String[][] processedOptions = processOptions(args, validOptions);
-            for(String[] s: processedOptions) {
-                for(String st: s) {
-                    System.out.print(st + " ");
-                }
-                System.out.println();
-            }
 
         } 
         
@@ -73,17 +61,15 @@ public class Main {
 
             // If an argument was not correctly formatted, print an error message and terminate the program
             if(option.length != 2) {
-                System.out.println("Invalid argument format, must be entered as <option>=<value> ('=' is a reserved character)\nCurrently available <option>=<value> pairs are:");
+                System.out.println("\nInvalid argument format, must be entered as <option>=<value> ('=' is a reserved character)\nCurrently available <option>=<value> pairs are:");
                 printOptions(validOptions);
-                return options;
+                return new String[0][0];
             } 
             
             else {
 
                 option[0] = option[0].toLowerCase();
                 option[1] = option[1].toLowerCase();
-
-                System.out.println(option[0] + ", " + option[1]);
 
                 String[] values = validOptions.get(option[0]);
 
@@ -92,7 +78,7 @@ public class Main {
                     boolean exists = false;
 
                     for(String val: values) {
-                        if(val.equals(options[1])) {
+                        if(val.equals(option[1])) {
                             exists = true;
                             break;
                         }
@@ -101,13 +87,16 @@ public class Main {
                     if(exists) {
                         options[argCounter] = option;
                     } else { 
-                        System.out.println("\"" + option[1] + "\" is an invalid value for option " + option[0] + "\nValid <option>=<value> pairs are:");
+                        System.out.println("\n\"" + option[1] + "\" is an invalid value for option " + option[0] + "\nValid <option>=<value> pairs are:");
                         printOptions(validOptions);
+                        return new String[0][0];
+
                     }
                     
                 } else {
-                    System.out.println("\"" + option[0] + "\" is an invalid option\nValid <option>=<value> pairs are:");
+                    System.out.println("\n\"" + option[0] + "\" is an invalid option\nValid <option>=<value> pairs are:");
                     printOptions(validOptions);
+                    return new String[0][0];
                 }
             }
             argCounter++;
@@ -119,12 +108,14 @@ public class Main {
 
         for(String option: validOptions.keySet()) {
 
-            System.out.println(option + ":");
+            System.out.println("\n" + option + ":");
             for(String value: validOptions.get(option)) {
-                System.out.println("\t" + value);
+                System.out.println("- " + value);
             }
 
         }
+
+        System.out.println();
 
     }
 
