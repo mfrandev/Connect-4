@@ -97,8 +97,10 @@ public class Rules {
         // Track whether the game has produced a stalemate
         boolean stalemate = false;
 
+        // Ask the user if wanting to be player 1 or 2
         int order = getOrderInput();
 
+        // Mirror the turn choice the user selects
         boolean playerTurn = order == 1;
 
         // Main gameplay loop
@@ -114,13 +116,18 @@ public class Rules {
             // Print the current board state
             board.printBoard();
 
+            // Store where the next piece should be placed
             int input;
 
+            // If a human turn
             if(playerTurn) {
                 
                 // Get the user input from the keyboard
                 input = getMoveInput();
-            } else {
+            } 
+            
+            // If an AI turn
+            else {
 
                 // Get the move choice from the AI player
                 input = aiPlayer.getMove();
@@ -239,6 +246,10 @@ public class Rules {
 
     }
 
+    /**
+     * Used to ask the user if wanting to be player 1 or 2
+     * @return an integer signifying which player the user chooses to be
+     */
     public int getOrderInput() {
         int input = 0;
            
@@ -250,7 +261,6 @@ public class Rules {
             // Try block catches non-numeric input
             try {
                 input = userInput.nextInt();
-
             } 
             
             // Catch the error when user tries to enter non-numeric data

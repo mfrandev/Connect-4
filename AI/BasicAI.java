@@ -6,19 +6,25 @@ import Game.Board;
 
 public class BasicAI extends AI {
 
+    // Used for selecting random integers within a range
     Random random;
 
+    /**
+     * Constructor invoques the AI superclass constructor and initializes the random object
+     */
     public BasicAI(Board board) {
         super(board);
         random = new Random();
     }
 
     /**
-     * Strategy is that the basic AI plays a random move from the set of available options
+     * Strategy for the basic AI is to play a random move from the set of available options
+     * @return an integer representing the column the AI chooses to play a piece in
      */
     @Override
     public int getMove() {
 
+        // Store the AI's final column selection
         int choice = -1;
 
         // Debugging
@@ -29,6 +35,8 @@ public class BasicAI extends AI {
 
         // The indexing for choice was designed to mimic the placePiece() method in Game/Rules.java
         while(choice == -1 || getBoard().getBoardMap()[choice - 1] == -1) {
+
+            // Select a random, valid piece location
             choice = random.nextInt(getBoard().getBoardMap().length - 1) + 1;
 
             // Debugging
