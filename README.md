@@ -9,6 +9,6 @@ Game Combinations Current Supported:
 Command Line Additional Options
 <ol>
     <li>Human vs Human: no options</li>
-    <li>Human vs AI: 1 option (ai=<level>)</li>
-    <li>AI vs AI: 2 options (ai=<level> ai=<level>)</li>
+    <li>Human vs AI: 1 option (ai=`<level>`)</li>
+    <li>AI vs AI: 2 options (ai=`<level>` ai=`<level>`)</li>
 </ol>
