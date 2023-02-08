@@ -45,11 +45,15 @@ public class Rules {
             // Print whose turn it is
             if(p1Turn) {
                 System.out.println("\nPlayer 1's Turn!\n");
+
+                // Print the opponent's last move
                 if(input != -1) {
                     System.out.println("Player 2 placed a piece in column " + input + "\n");
                 }
             } else {
                 System.out.println("\nPlayer 2's Turn!\n");
+
+                // Print the opponent's last move
                 if(input != -1) {
                     System.out.println("Player 1 placed a piece in column " + input + "\n");
                 }
@@ -121,11 +125,15 @@ public class Rules {
             // Print whose turn it is
             if(p1Turn) {
                 System.out.println("\nPlayer 1's Turn!\n");
+
+                // Print the opponent's last move
                 if(input != -1) {
                     System.out.println("Player 2 placed a piece in column " + input + "\n");
                 }
             } else {
                 System.out.println("\nPlayer 2's Turn!\n");
+
+                // Print the opponent's last move
                 if(input != -1) {
                     System.out.println("Player 1 placed a piece in column " + input + "\n");
                 }
