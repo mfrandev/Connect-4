@@ -3,6 +3,7 @@ package Game;
 import AI.AI;
 
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class Rules {
 
@@ -36,21 +37,29 @@ public class Rules {
         // Track whether the game has produced a stalemate
         boolean stalemate = false;
 
+        int input = -1;
+
         // Main gameplay loop
         while(!gameOver) {
 
             // Print whose turn it is
             if(p1Turn) {
                 System.out.println("\nPlayer 1's Turn!\n");
+                if(input != -1) {
+                    System.out.println("Player 2 placed a piece in column " + input + "\n");
+                }
             } else {
                 System.out.println("\nPlayer 2's Turn!\n");
+                if(input != -1) {
+                    System.out.println("Player 1 placed a piece in column " + input + "\n");
+                }
             }
 
             // Print the current board state
             board.printBoard();
 
             // Get the user input from the keyboard
-            int input = getMoveInput();
+            input = getMoveInput();
 
             // Place the piece on the board and return if the game is over or not 
             gameOver = placePiece(input);
@@ -103,21 +112,27 @@ public class Rules {
         // Mirror the turn choice the user selects
         boolean playerTurn = order == 1;
 
+        // Store where the next piece should be placed
+        int input = -1;
+
         // Main gameplay loop
         while(!gameOver) {
 
             // Print whose turn it is
             if(p1Turn) {
                 System.out.println("\nPlayer 1's Turn!\n");
+                if(input != -1) {
+                    System.out.println("Player 2 placed a piece in column " + input + "\n");
+                }
             } else {
                 System.out.println("\nPlayer 2's Turn!\n");
+                if(input != -1) {
+                    System.out.println("Player 1 placed a piece in column " + input + "\n");
+                }
             }
 
             // Print the current board state
             board.printBoard();
-
-            // Store where the next piece should be placed
-            int input;
 
             // If a human turn
             if(playerTurn) {
@@ -131,6 +146,21 @@ public class Rules {
 
                 // Get the move choice from the AI player
                 input = aiPlayer.getMove();
+
+                // Wait 4 seconds to let the human to process the game state
+                try {
+
+                    // Print some status message
+                    System.out.println("\nAI making a move...");
+
+                    // Perform the wait
+                    TimeUnit.SECONDS.sleep(4);
+                } 
+                
+                // Should never trigger
+                catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
 
                 // Debugging
                 // System.out.println("AI tried to play in column " + input);
