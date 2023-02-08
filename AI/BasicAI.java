@@ -37,10 +37,10 @@ public class BasicAI extends AI {
         while(choice == -1 || getBoard().getBoardMap()[choice - 1] == -1) {
 
             // Select a random, valid piece location
-            choice = random.nextInt(getBoard().getBoardMap().length - 1) + 1;
+            choice = random.nextInt((getBoard().getBoardMap().length + 1) - 1) + 1;
 
             // Debugging
-            // System.out.println("Placing in column " + choice + " with depth " + getBoard().getBoardMap()[choice - 1]);
+            System.out.println("Placing in column " + choice + " with depth " + getBoard().getBoardMap()[choice - 1]);
         }
 
         return choice;
