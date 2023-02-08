@@ -219,7 +219,7 @@ public class Rules {
     }
 
     /**
-     * This method contains the gameplay loop for a human player and an AI player
+     * This method contains the gameplay loop for 2 AI players
      * I.e., while game is not over, play game
      */
     public void play(AI aiPlayer1, AI aiPlayer2) {
