@@ -7,7 +7,11 @@ public abstract class AI {
     protected Board board;
     protected int player;
 
-    public AI(Board board, int player) {
+    protected AI(Board board) {
+        this.board = board;
+    }
+
+    protected AI(Board board, int player) {
         this.board = board;
         this.player = player;
     }
@@ -18,6 +22,11 @@ public abstract class AI {
 
     public Board getBoard() {
         return board;
+    }
+
+    public int getMove() {
+        int temp = 0;
+        return temp + 1;
     }
 
 }

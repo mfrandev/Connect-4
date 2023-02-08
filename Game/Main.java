@@ -1,5 +1,8 @@
 package Game;
 
+import AI.AI;
+import AI.BasicAI;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,6 +39,19 @@ public class Main {
         else if(args.length > 0 && args.length <= 2) {
 
             String[][] processedOptions = processOptions(args, validOptions);
+
+            if(processedOptions.length == 0) System.exit(0);
+
+            int numOptions = 1;
+            if(processedOptions[1][0] != null) {
+                numOptions = 2;
+            }
+
+            if(numOptions == 1) {
+                if(processedOptions[0][0].equals("ai")) {
+                    r.play(createAIPlayer(processedOptions[0][1], b));
+                }
+            }
 
         } 
         
@@ -116,6 +132,16 @@ public class Main {
         }
 
         System.out.println();
+
+    }
+
+    public static AI createAIPlayer(String type, Board b) {
+
+        if(type.equals("basic")) {
+            return new BasicAI(b);
+        }
+
+        else return null;
 
     }
 

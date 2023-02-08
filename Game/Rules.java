@@ -1,4 +1,7 @@
 package Game;
+
+import AI.AI;
+
 import java.util.Scanner;
 
 public class Rules {
@@ -22,7 +25,7 @@ public class Rules {
     }
 
     /**
-     * This method contains the gameplay loop
+     * This method contains the gameplay loop for 2 human players on the same machine
      * I.e., while game is not over, play game
      */
     public void play() {
@@ -47,7 +50,7 @@ public class Rules {
             board.printBoard();
 
             // Get the user input from the keyboard
-            int input = getInput();
+            int input = getMoveInput();
 
             // Place the piece on the board and return if the game is over or not 
             gameOver = placePiece(input);
@@ -60,6 +63,89 @@ public class Rules {
 
             // It is the next player's turn
             p1Turn = !p1Turn;
+
+        }
+
+        // It is the next player's turn
+        p1Turn = !p1Turn;
+
+        // Notify the players who has won the game and that the game is over
+        if(!stalemate) {
+            System.out.println();
+            board.printBoard();
+            System.out.println("\nPlayer " + (p1Turn ? "1" : "2") + " wins!\n");
+        } 
+        
+        // Notify the players that a stalemate has been reached and that the game is over
+        else {
+            System.out.println();
+            board.printBoard();
+            System.out.println("\nStalemate!\n");
+        }
+
+    }
+
+    /**
+     * This method contains the gameplay loop for a human player and an AI player
+     * I.e., while game is not over, play game
+     */
+    public void play(AI aiPlayer) {
+
+        // Track whether the game is over
+        boolean gameOver = false;
+
+        // Track whether the game has produced a stalemate
+        boolean stalemate = false;
+
+        int order = getOrderInput();
+
+        boolean playerTurn = order == 1;
+
+        // Main gameplay loop
+        while(!gameOver) {
+
+            // Print whose turn it is
+            if(p1Turn) {
+                System.out.println("\nPlayer 1's Turn!\n");
+            } else {
+                System.out.println("\nPlayer 2's Turn!\n");
+            }
+
+            // Print the current board state
+            board.printBoard();
+
+            int input;
+
+            if(playerTurn) {
+                
+                // Get the user input from the keyboard
+                input = getMoveInput();
+            } else {
+
+                // Get the move choice from the AI player
+                input = aiPlayer.getMove();
+                System.out.println("AI tried to play in column " + input);
+            }
+
+            // Place the piece on the board and return if the game is over or not 
+            gameOver = placePiece(input);
+
+            for(int depth: board.getBoardMap()) {
+                System.out.print(depth + " ");
+            }
+            System.out.println();
+
+            // If a stalemate is found, the game should also be considered over
+            if(isStalemate()) {
+                gameOver = true;
+                stalemate = true;
+            }
+
+            // It is the next player's turn
+            p1Turn = !p1Turn;
+
+            // Note that it is either no longer the human's (or AI's) turn 
+            playerTurn = !playerTurn;
 
         }
 
@@ -107,7 +193,7 @@ public class Rules {
     /**
      * @return an integer represent the column in which the user wants to place a piece
      */
-    public int getInput() {
+    public int getMoveInput() {
 
         int column = 0;
 
@@ -148,6 +234,31 @@ public class Rules {
 
         return column;
 
+    }
+
+    public int getOrderInput() {
+        int input = 0;
+           
+        // Loop until the user submits a valid submission
+        while(input != 1 && input != 2) {
+        
+            System.out.print("\nWould you like to move 1st (enter 1) or 2nd (enter 2)?\n");
+
+            // Try block catches non-numeric input
+            try {
+                input = userInput.nextInt();
+
+            } 
+            
+            // Catch the error when user tries to enter non-numeric data
+            catch(Exception e) {
+                userInput.next();
+                input = 0;
+            }
+
+        }
+
+        return input;
     }
 
     /**
