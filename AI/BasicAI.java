@@ -21,14 +21,18 @@ public class BasicAI extends AI {
 
         int choice = -1;
 
-        for(int depth: board.getBoardMap()) {
-            System.out.print(depth + " ");
-        }
-        System.out.println();
+        // Debugging
+        // for(int depth: board.getBoardMap()) {
+        //     System.out.print(depth + " ");
+        // }
+        // System.out.println();
 
+        // The indexing for choice was designed to mimic the placePiece() method in Game/Rules.java
         while(choice == -1 || getBoard().getBoardMap()[choice - 1] == -1) {
             choice = random.nextInt(getBoard().getBoardMap().length - 1) + 1;
-            System.out.println("Placing in column " + choice + " with depth " + getBoard().getBoardMap()[choice - 1]);
+
+            // Debugging
+            // System.out.println("Placing in column " + choice + " with depth " + getBoard().getBoardMap()[choice - 1]);
         }
 
         return choice;

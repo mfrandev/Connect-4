@@ -124,16 +124,19 @@ public class Rules {
 
                 // Get the move choice from the AI player
                 input = aiPlayer.getMove();
-                System.out.println("AI tried to play in column " + input);
+
+                // Debugging
+                // System.out.println("AI tried to play in column " + input);
             }
 
             // Place the piece on the board and return if the game is over or not 
             gameOver = placePiece(input);
 
-            for(int depth: board.getBoardMap()) {
-                System.out.print(depth + " ");
-            }
-            System.out.println();
+            // Debugging
+            // for(int depth: board.getBoardMap()) {
+            //     System.out.print(depth + " ");
+            // }
+            // System.out.println();
 
             // If a stalemate is found, the game should also be considered over
             if(isStalemate()) {
