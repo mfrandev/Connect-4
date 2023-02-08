@@ -60,6 +60,33 @@ public class Main {
             // Process 2 arguments
             else {
                 // TODO
+                // If the argument entered specified an AI player
+                if(processedOptions[0][0].equals("ai")) {
+
+                    // Create the AI player and move to the second argument
+                    AI aiPlayer1 = createAIPlayer(processedOptions[0][1], b);
+
+                    // If the second argument is also an AI player
+                    if(processedOptions[1][0].equals("ai")) {
+
+                        // Create the AI player and play the game
+                        AI aiPlayer2 = createAIPlayer(processedOptions[1][1], b);
+
+                        r.play(aiPlayer1, aiPlayer2);
+
+                    } 
+
+                    // Coming soon
+                    // else if() {
+
+                    // }
+
+                } 
+                
+                // Coming soon
+                // else if() {
+
+                // }
             }
 
         } 
@@ -177,7 +204,7 @@ public class Main {
      * Takes the type of AI to create as a string and the board (to initialize the object)
      * @return an AI player
      */
-    public static AI createAIPlayer(String type, Board b) {
+    public static AI createAIPlayer(String type, Board b, int player) {
 
         // Creates a basic AI 
         if(type.equals("basic")) {
