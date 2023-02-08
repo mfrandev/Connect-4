@@ -26,6 +26,13 @@ public abstract class AI {
     }
 
     /**
+     * Set which player this AI is playing as (effects strategy at higher levels)
+     */
+    public void setPlayer(int player) {
+        this.player = player;
+    }
+
+    /**
      * @return an integer representing whether this AI is player 1 or 2
      */
     public int getPlayer() {

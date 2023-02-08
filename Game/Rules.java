@@ -5,6 +5,7 @@ import AI.AI;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
+
 public class Rules {
 
     // Store the board for this game
@@ -116,6 +117,8 @@ public class Rules {
         // Mirror the turn choice the user selects
         boolean playerTurn = order == 1;
 
+        aiPlayer.setPlayer(playerTurn ? 2 : 1);
+
         // Store where the next piece should be placed
         int input = -1;
 
@@ -162,7 +165,7 @@ public class Rules {
                     System.out.println("\nAI making a move...");
 
                     // Perform the wait
-                    TimeUnit.SECONDS.sleep(4);
+                    TimeUnit.SECONDS.sleep(3);
                 } 
                 
                 // Should never trigger
@@ -194,6 +197,140 @@ public class Rules {
 
             // Note that it is either no longer the human's (or AI's) turn 
             playerTurn = !playerTurn;
+
+        }
+
+        // It is the next player's turn
+        p1Turn = !p1Turn;
+
+        // Notify the players who has won the game and that the game is over
+        if(!stalemate) {
+            System.out.println();
+            board.printBoard();
+            System.out.println("\nPlayer " + (p1Turn ? "1" : "2") + " wins!\n");
+        } 
+        
+        // Notify the players that a stalemate has been reached and that the game is over
+        else {
+            System.out.println();
+            board.printBoard();
+            System.out.println("\nStalemate!\n");
+        }
+
+    }
+
+    /**
+     * This method contains the gameplay loop for 2 AI players
+     * I.e., while game is not over, play game
+     */
+    public void play(AI aiPlayer1, AI aiPlayer2) {
+
+        // Track whether the game is over
+        boolean gameOver = false;
+
+        // Track whether the game has produced a stalemate
+        boolean stalemate = false;
+
+        // This is a pseudo-random coin flip to determine which AI is player 1 and which is player 2
+        int max = 2;
+        int min = 1;
+        int range = max - min + 1;
+
+        aiPlayer1.setPlayer((int)(Math.random() * range) + min);
+        aiPlayer2.setPlayer(aiPlayer1.getPlayer() == 1 ? 2 : 1);
+
+        System.out.println("\nAI specified in argument 1 is player: " + aiPlayer1.getPlayer());
+        System.out.println("AI specified in argument 2 is player: " + aiPlayer2.getPlayer());
+
+        // Wait 4 seconds to let spectators register which argument corresponds to which AI
+        try {
+            // Perform the wait
+            TimeUnit.SECONDS.sleep(2);
+        } 
+        
+        // Should never trigger
+        catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // Store where the next piece should be placed
+        int input = -1;
+
+        // Main gameplay loop
+        while(!gameOver) {
+
+            // Print whose turn it is
+            if(p1Turn) {
+                System.out.println("\nPlayer 1's Turn!\n");
+
+                // Print the opponent's last move
+                if(input != -1) {
+                    System.out.println("Player 2 placed a piece in column " + input + "\n");
+                }
+            } else {
+                System.out.println("\nPlayer 2's Turn!\n");
+
+                // Print the opponent's last move
+                if(input != -1) {
+                    System.out.println("Player 1 placed a piece in column " + input + "\n");
+                }
+            }
+
+            // Print the current board state
+            board.printBoard();
+
+            // If player 1's turn
+            if(p1Turn) {
+
+                // If aiPlayer1 is the first player, get its move
+                // Otherwise, get aiPlayer2's move
+                input = aiPlayer1.getPlayer() == 1 ? aiPlayer1.getMove() : aiPlayer2.getMove();
+                
+            } 
+            
+            // If player 2's turn
+            else {
+
+                // If aiPlayer1 is the second player, get its move
+                // Otherwise, get aiPlayer2's move
+                input = aiPlayer1.getPlayer() == 2 ? aiPlayer1.getMove() : aiPlayer2.getMove();
+
+                // Debugging
+                // System.out.println("AI tried to play in column " + input);
+            }
+
+            // Wait 4 seconds to let spectators process the game state
+            try {
+
+                // Print some status message
+                System.out.print("\nAI " + (p1Turn ? "player 1" : "player 2") + " making a move...\n");
+
+                // Perform the wait
+                TimeUnit.SECONDS.sleep(2);
+            } 
+            
+            // Should never trigger
+            catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            // Place the piece on the board and return if the game is over or not 
+            gameOver = placePiece(input);
+
+            // Debugging
+            // for(int depth: board.getBoardMap()) {
+            //     System.out.print(depth + " ");
+            // }
+            // System.out.println();
+
+            // If a stalemate is found, the game should also be considered over
+            if(isStalemate()) {
+                gameOver = true;
+                stalemate = true;
+            }
+
+            // It is the next player's turn
+            p1Turn = !p1Turn;
 
         }
 
