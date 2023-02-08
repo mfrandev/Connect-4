@@ -52,6 +52,10 @@ public class Board {
         return tempBoardMap;
     }
 
+    /**
+     * Getter for the board map
+     * @return an int[] representing the depths of each column
+     */
     public int[] getBoardMap() {
         return boardMap;
     }
