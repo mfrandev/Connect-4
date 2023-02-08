@@ -1,6 +1,7 @@
 package Game;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class Main {
 
@@ -20,7 +21,7 @@ public class Main {
         if(args.length > 2) {
 
             // Initialize the set of valid <option>=<value> pairs
-            HashMap<String, String[]> validOptions = new HashMap<>();
+            Map<String, String[]> validOptions = new HashMap<>();
 
             // These are the valid pairs (not case sensitive)
             validOptions.put("ai", new String[] {"basic"});
@@ -62,7 +63,7 @@ public class Main {
      * Determine if the options the user specified when running the command line are valid
      * @return a String[][] of the parsed options if valid, otherwise an empty String[][]
      */
-    public static String[][] processOptions(String[] args, HashMap<String, String[]> validOptions) {
+    public static String[][] processOptions(String[] args, Map<String, String[]> validOptions) {
 
         String[][] options = new String[2][2];
 
@@ -84,7 +85,7 @@ public class Main {
 
                 System.out.println(option[0] + ", " + option[1]);
 
-                String[] values = set.get(option[0]);
+                String[] values = validOptions.get(option[0]);
 
                 if(values != null) {
 
@@ -113,15 +114,16 @@ public class Main {
         }
         return options;
     }
-}
 
-public static void printOptions(HashMap<String, String[]> validOptions) {
+    public static void printOptions(Map<String, String[]> validOptions) {
 
-    for(String option: validOptions.keySet()) {
+        for(String option: validOptions.keySet()) {
 
-        System.out.println(option + ":");
-        for(String value: validOptions.get(option)) {
-            System.out.println("\t" + value);
+            System.out.println(option + ":");
+            for(String value: validOptions.get(option)) {
+                System.out.println("\t" + value);
+            }
+
         }
 
     }

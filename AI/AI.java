@@ -16,4 +16,8 @@ public abstract class AI {
         return player;
     } 
 
+    public Board getBoard() {
+        return board;
+    }
+
 }

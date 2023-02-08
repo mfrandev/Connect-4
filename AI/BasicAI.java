@@ -3,6 +3,8 @@ package AI;
 import java.util.HashSet;
 import java.util.Random;
 
+import Game.Board;
+
 public class BasicAI extends AI {
 
     Random random;
@@ -19,8 +21,8 @@ public class BasicAI extends AI {
 
         int choice = -1;
 
-        while(choice == -1 || board.boardMap[choice] == -1) {
-            choice = random.nextInt(board.boardMap.length);
+        while(choice == -1 || getBoard().getBoardMap()[choice] == -1) {
+            choice = random.nextInt(getBoard().getBoardMap().length);
         }
 
         return choice;
