@@ -40,7 +40,7 @@ public class BasicAI extends AI {
             choice = random.nextInt((getBoard().getBoardMap().length + 1) - 1) + 1;
 
             // Debugging
-            System.out.println("Placing in column " + choice + " with depth " + getBoard().getBoardMap()[choice - 1]);
+            // System.out.println("Placing in column " + choice + " with depth " + getBoard().getBoardMap()[choice - 1]);
         }
 
         return choice;

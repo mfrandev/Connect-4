@@ -5,6 +5,7 @@ import AI.AI;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
+
 public class Rules {
 
     // Store the board for this game
@@ -230,10 +231,27 @@ public class Rules {
         // Track whether the game has produced a stalemate
         boolean stalemate = false;
 
-        // Set the AI player turn order
-        // This will likely change to a pseudo-random coin flip in the future
-        aiPlayer1.setPlayer(1);
-        aiPlayer2.setPlayer(2);
+        // This is a pseudo-random coin flip to determine which AI is player 1 and which is player 2
+        int max = 2;
+        int min = 1;
+        int range = max - min + 1;
+
+        aiPlayer1.setPlayer((int)(Math.random() * range) + min);
+        aiPlayer2.setPlayer(aiPlayer1.getPlayer() == 1 ? 2 : 1);
+
+        System.out.println("\nAI specified in argument 1 is player: " + aiPlayer1.getPlayer());
+        System.out.println("AI specified in argument 2 is player: " + aiPlayer2.getPlayer());
+
+        // Wait 4 seconds to let spectators register which argument corresponds to which AI
+        try {
+            // Perform the wait
+            TimeUnit.SECONDS.sleep(2);
+        } 
+        
+        // Should never trigger
+        catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         // Store where the next piece should be placed
         int input = -1;
@@ -285,7 +303,7 @@ public class Rules {
             try {
 
                 // Print some status message
-                System.out.print("\nAI " + (p1Turn ? "player 1" : "player 2") + " making a move...");
+                System.out.print("\nAI " + (p1Turn ? "player 1" : "player 2") + " making a move...\n");
 
                 // Perform the wait
                 TimeUnit.SECONDS.sleep(2);
