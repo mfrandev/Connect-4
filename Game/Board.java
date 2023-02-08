@@ -52,6 +52,10 @@ public class Board {
         return tempBoardMap;
     }
 
+    public int[] getBoardMap() {
+        return boardMap;
+    }
+
     /**
      * Let the board object print itself with the current state of the game
      */
