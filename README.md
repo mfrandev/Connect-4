@@ -12,4 +12,5 @@ Command Line Additional Options
     <li>Human vs AI: 1 option (ai=[level])</li>
     <li>AI vs AI: 2 options (ai=[level] ai=[level])</li>
 </ol>
+<br>
 Note: currently available AI levels are: [basic]
