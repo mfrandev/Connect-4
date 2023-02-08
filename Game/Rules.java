@@ -164,7 +164,7 @@ public class Rules {
                     System.out.println("\nAI making a move...");
 
                     // Perform the wait
-                    TimeUnit.SECONDS.sleep(4);
+                    TimeUnit.SECONDS.sleep(3);
                 } 
                 
                 // Should never trigger
@@ -288,7 +288,7 @@ public class Rules {
                 System.out.print("\nAI " + (p1Turn ? "player 1" : "player 2") + " making a move...");
 
                 // Perform the wait
-                TimeUnit.SECONDS.sleep(4);
+                TimeUnit.SECONDS.sleep(2);
             } 
             
             // Should never trigger

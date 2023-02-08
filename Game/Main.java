@@ -204,7 +204,7 @@ public class Main {
      * Takes the type of AI to create as a string and the board (to initialize the object)
      * @return an AI player
      */
-    public static AI createAIPlayer(String type, Board b, int player) {
+    public static AI createAIPlayer(String type, Board b) {
 
         // Creates a basic AI 
         if(type.equals("basic")) {
