@@ -54,6 +54,17 @@ public class Main {
 
                     // Create the AI player and play the game
                     r.play(createAIPlayer(processedOptions[0][1], b));
+                } 
+                
+                // TODO implement human vs human over network (this machine is server)
+                else if(processedOptions[0][0].equals("net")) {
+
+                    // TODO create a server socket 
+
+                    // TODO wait for connection
+
+                    // TODO start the game loop
+
                 }
             } 
             
@@ -77,6 +88,7 @@ public class Main {
                     } 
 
                     // Coming soon
+                    //TODO AI vs Client (this machine is server)
                     // else if() {
 
                     // }
@@ -84,6 +96,7 @@ public class Main {
                 } 
                 
                 // Coming soon
+                // TODO implement Client vs AI ONLY (no client vs client)
                 // else if() {
 
                 // }
