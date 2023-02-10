@@ -72,8 +72,8 @@ public class Main {
                         System.exit(0);
                     }
 
-                    // TODO start the game loop
-
+                    // Start the game loop
+                    r.play(player);
                 }
             } 
             

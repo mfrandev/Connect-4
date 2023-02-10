@@ -1,4 +1,7 @@
 package Game;
+
+import java.io.PrintWriter;
+
 public class Board {
 
     // Save the board as a 2D array of Piece objects
@@ -108,5 +111,53 @@ public class Board {
 
     }
 
+    /**
+     * Prints the board to the socket buffer stream instead of the console
+     * @param writer stream to which the board should be printed
+     */
+    public void sendBoardState(PrintWriter writer) {
+        
+        // Print the headers for each column 
+        for(int i = 1; i < 8; i++) {
+
+            // Debugging
+            // writer.print(" " + i + "  ");
+            writer.print(i + " ");
+        }
+
+        writer.println();
+
+        // Print the 6x7 board showing the state of each piece
+        for(int i = 0; i < theBoard.length; i++) {
+            for(int j = 0; j < theBoard[i].length; j++) {
+
+                // If space is empty, print a point
+                if(theBoard[i][j].getPlayer() == 0) {
+
+                    //Debugging
+                    // writer.print(" .," + theBoard[i][j].getMaxNumConnected());
+                    writer.print(". " );
+                } 
+                
+                // If Player 1 placed a piece in a given spot, print an X
+                else if(theBoard[i][j].getPlayer() == 1) {
+
+                    //Debugging
+                    // writer.print(" X," + theBoard[i][j].getMaxNumConnected());
+                    writer.print("X ");
+                } 
+                
+                // If Player 2 placed a piece in a given spot, print an O
+                else if(theBoard[i][j].getPlayer() == -1) {
+
+                    //Debugging
+                    // writer.print(" O," + theBoard[i][j].getMaxNumConnected());
+                    writer.print("O ");
+                }
+            }
+            writer.println();
+        }
+        writer.flush();
+    }
 
 }

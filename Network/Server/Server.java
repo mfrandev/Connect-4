@@ -34,7 +34,7 @@ public class Server {
             if(!(setTimeout(server, timeout))) return null;
 
             // Tell the user what is happening
-            System.out.println("Waiting for network opponent (" + (timeout / 1000) + " seconds)...");
+            System.out.println("\nWaiting for network opponent (" + (timeout / 1000) + " seconds)...");
 
             // Wait for connection from other player
             Socket playerSocket = server.accept();
