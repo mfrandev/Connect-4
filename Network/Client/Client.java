@@ -61,6 +61,12 @@ public class Client {
                 if(!gameOver) {
                     pr.write(sc.nextInt());
                     pr.flush();
+                    while((line = br.readLine()) != null) {
+                        if(line.equals("VALID")) break;
+                        System.out.println(line);
+                        pr.write(sc.nextInt());
+                        pr.flush();
+                    }
                 }
             }
 

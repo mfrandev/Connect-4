@@ -476,8 +476,21 @@ public class Rules {
                     // Tell the host it is waiting for the client
                     System.out.println("\nWaiting for your opponent to make a move...");
 
-                    // Get the client input
-                    input = br.read();                
+                    // Get the client input and validate it
+                    input = br.read();      
+                    boolean valid = isValidInput(input, pr);  
+
+                    // If invalid input...
+                    while(!valid) {
+
+                        // Get the client input until it is valid while sending errors to client
+                        input = br.read();  
+                        valid = isValidInput(input, pr); 
+                    }     
+
+                    // Notify the client a valid input has been recieved
+                    pr.println("VALID");
+                    pr.flush();   
                 }
 
                 // Place the piece on the board and return if the game is over or not 
@@ -533,7 +546,7 @@ public class Rules {
                 System.out.println("\nStalemate!\n");
             }
 
-            // Tell the client the game is over so it can terminate
+            // Tell the client the game is ended
             pr.println("END");
             pr.flush();
 
@@ -576,27 +589,13 @@ public class Rules {
         System.out.print("\nEnter the column number in which you would like to place your piece:\n");
            
         // Loop until the user submits a valid submission
-        while(column <= 0 || column > 7 && board.getBoardMap()[column - 1] < 0) {
+        boolean valid = false;
+        while(!valid) {
         
             // Try block catches non-numeric input
             try {
                 column = userInput.nextInt();
-
-                // Retry if user submits a number whose column doesn't exist
-                if(column <= 0 || column > 7) {
-                    System.out.println("Please enter a valid integer between 1 and 7 inclusive");
-                    column = 0;
-                    continue;
-                }
-                
-                // Retry if the user tries to place a piece in a column thats already full
-                if(board.getBoardMap()[column - 1] < 0) {
-                    System.out.println("Column " + column + " is already full of pieces, please pick another column");
-                    column = 0;
-                    continue;
-                }
-
-                return column;
+                valid = isValidInput(column);
             } 
             
             // Catch the error when user tries to enter non-numeric data
@@ -611,6 +610,66 @@ public class Rules {
         return column;
 
     }
+
+    /**
+     * Determines if user input is valid given the board state
+     * @param column int that represents the move
+     * @return a boolean, true if move is valid, else false
+     */
+    public boolean isValidInput(int column) {
+
+         // Loop until the user submits a valid submission
+         if(column <= 0 || column > 7 || board.getBoardMap()[column - 1] < 0) {
+
+            // Retry if user submits a number whose column doesn't exist
+            if(column <= 0 || column > 7) {
+                System.out.println("Please enter a valid integer between 1 and 7 inclusive");
+                return false;
+            }
+            
+            // Retry if the user tries to place a piece in a column thats already full
+            if(board.getBoardMap()[column - 1] < 0) {
+                System.out.println("Column " + column + " is already full of pieces, please pick another column");
+                return false;
+            }
+
+        }
+
+        return true;
+        
+    }
+
+    /**
+     * Determines if user input is valid given the board state
+     * Writes errors to client, rather than console
+     * @param column int that represents the move
+     * @param pr PrintWriter that writes the output to a client rather than the console
+     * @return a boolean, true if move is valid, else false
+     */
+    public boolean isValidInput(int column, PrintWriter pr) {
+
+        // Loop until the user submits a valid submission
+        if(column <= 0 || column > 7 || board.getBoardMap()[column - 1] < 0) {
+
+           // Retry if user submits a number whose column doesn't exist
+           if(column <= 0 || column > 7) {
+               pr.println("Please enter a valid integer between 1 and 7 inclusive");
+               pr.flush();
+               return false;
+           }
+           
+           // Retry if the user tries to place a piece in a column thats already full
+           if(board.getBoardMap()[column - 1] < 0) {
+               pr.println("Column " + column + " is already full of pieces, please pick another column");
+               pr.flush();
+               return false;
+           }
+
+       }
+
+       return true;
+       
+   }
 
     /**
      * Used to ask the user if wanting to be player 1 or 2
