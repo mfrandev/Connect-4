@@ -25,6 +25,14 @@ public class NetworkPlayer {
     }
 
     /**
+     * Constructor to initialize client communication with server
+     * @param socket Socket object
+     */
+    public NetworkPlayer(Socket socket) {
+        setSocket(socket);
+    }
+
+    /**
      * Set the socket for communicating withi client
      * @param socket
      */

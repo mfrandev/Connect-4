@@ -1,10 +1,12 @@
-package Network;
+package Network.Server;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
+
+import Network.NetworkPlayer;
 
 public class Server {
 

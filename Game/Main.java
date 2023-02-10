@@ -3,7 +3,7 @@ package Game;
 import AI.AI;
 import AI.BasicAI;
 import Network.NetworkPlayer;
-import Network.Server;
+import Network.Server.Server;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -58,7 +58,7 @@ public class Main {
                     r.play(createAIPlayer(processedOptions[0][1], b));
                 } 
                 
-                // TODO implement server for human vs human over network
+                // Create server for human vs human over network
                 else if(processedOptions[0][0].equals("net")) {
 
                     // Determine how long the server socket timeout should be
@@ -79,6 +79,7 @@ public class Main {
             
             // Process 2 arguments
             else {
+
                 // TODO
                 // If the argument entered specified an AI player
                 if(processedOptions[0][0].equals("ai")) {
@@ -164,7 +165,7 @@ public class Main {
                     
                     // Bad timeout value, use default instead
                     catch(Exception e) {
-                        System.out.println("Invaild timeout length provided (non-positive value), will use default 60 seconds");
+                        System.out.println("Invaild timeout length provided (must be positive integer), will use default 60 seconds");
                         option = new String[]{"net", "60"};
                     }
                 }

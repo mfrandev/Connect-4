@@ -1,13 +1,12 @@
-package Network;
+package Network.Client;
 
 import java.io.*;
-import java.util.Scanner;
 import java.net.*;
+import java.util.Scanner;
 
-public class client {
-
+public class Client {
     public static void main(String[] args) {
-        try (Socket s = new Socket("localhost", 8080)) {
+        try (Socket s = new Socket("localhost", 5050)) {
 
             PrintWriter pr = new PrintWriter(s.getOutputStream());
             Scanner sc = new Scanner(System.in);
@@ -26,5 +25,4 @@ public class client {
             e.printStackTrace();
         }
     }
-    
 }
