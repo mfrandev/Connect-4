@@ -2,6 +2,8 @@ package Game;
 
 import AI.AI;
 import AI.BasicAI;
+import Network.NetworkPlayer;
+import Network.Server.Server;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -54,11 +56,30 @@ public class Main {
 
                     // Create the AI player and play the game
                     r.play(createAIPlayer(processedOptions[0][1], b));
+                } 
+                
+                // Create server for human vs human over network
+                else if(processedOptions[0][0].equals("net")) {
+
+                    // Determine how long the server socket timeout should be
+                    int timeout = Integer.parseInt(processedOptions[0][1]);
+
+                    // Get a connection to the network player
+                    NetworkPlayer player = Server.createNetworkPlayer(timeout);
+
+                    // If did not connect to other player, terminate the program
+                    if(player == null) {
+                        System.exit(0);
+                    }
+
+                    // Start the game loop
+                    r.play(player);
                 }
             } 
             
             // Process 2 arguments
             else {
+
                 // TODO
                 // If the argument entered specified an AI player
                 if(processedOptions[0][0].equals("ai")) {
@@ -77,6 +98,7 @@ public class Main {
                     } 
 
                     // Coming soon
+                    // TODO AI vs Client (this machine is server)
                     // else if() {
 
                     // }
@@ -84,6 +106,7 @@ public class Main {
                 } 
                 
                 // Coming soon
+                // TODO implement Client vs AI ONLY (no client vs client)
                 // else if() {
 
                 // }
@@ -117,20 +140,56 @@ public class Main {
             // Split by '=' since in <option>=<value> format
             String[] option = arg.split("=");
 
+            // Make the option non-case sensitive
+            // Don't touch value because no guarantee it is alphabetic yet
+            option[0] = option[0].toLowerCase();
+
+            // Network option is a special case because there is a valid default value (60)
+            if(option[0].equals("net")) {
+
+                // If default case, explicitly set the default value
+                if(option.length == 1) {
+                    option = new String[]{"net", "60"};
+                } 
+                
+                // Other valid case is a specified timeout length
+                else if(option.length == 2) {
+
+                    // Extract the timeout value from the inupt
+                    try {
+                        int timeout = Integer.parseInt(option[1]);
+
+                        // Should also through exception for non-positive values
+                        if(timeout <= 0) throw new NumberFormatException();
+                    } 
+                    
+                    // Bad timeout value, use default instead
+                    catch(Exception e) {
+                        System.out.println("Invaild timeout length provided (must be positive integer), will use default 60 seconds");
+                        option = new String[]{"net", "60"};
+                    }
+                }
+
+                // Set the network timeout value pair
+                options[argCounter] = option;
+
+            }
+
             // If an argument was not correctly formatted, print an error message, and return an empty array to signify failure
+            // Works because default net argument will be set to net=60 and invalid args will not be modified
             if(option.length != 2) {
 
                 System.out.println("\nInvalid argument format, must be entered as <option>=<value> ('=' is a reserved character)\nCurrently available <option>=<value> pairs are:");
                 printOptions(validOptions);
                 return new String[0][0];
 
-            } 
+            }
             
-            // If this argument was correctly formatted, check the data is meaninful
-            else {
+            // If this argument did not specify a network player and was correctly formatted, check that the data is meaninful
+            // Correct condition because "net" argument can have 0 options
+            else if(!option[0].equals("net")) {
 
-                // Make options non-case sensitive
-                option[0] = option[0].toLowerCase();
+                // Make the value non-case sensitive
                 option[1] = option[1].toLowerCase();
 
                 // Check if the option exists
