@@ -7,7 +7,35 @@ import java.util.concurrent.TimeUnit;
 
 public class Client {
     public static void main(String[] args) {
-        try (Socket s = new Socket("localhost", 5050)) {
+
+        // Default host and port values
+        String host = "localhost";
+        int port = 5050;
+
+        // Too many args, exit program
+        if(args.length > 2) {
+            System.out.println("Too many args: optional args are [host] [port]");
+            System.exit(0);
+        }
+
+        // If a host was specified, set it 
+        if(args.length >= 1) {
+            host = args[0];
+        }
+
+        // If a port was specified, use it
+        if(args.length == 2) {
+            try {
+                port = Integer.parseInt(args[1]);
+            } catch(Exception e) {
+                System.out.println("Invalid port value, using default port 5050");
+            }
+        }
+
+        // Tell the client where it's connecting
+        System.out.println("\nConnecting to " + host + ":" + port);
+        
+        try (Socket s = new Socket(host, port)) {
 
             // Initialize all of the objects needed to communicate with server
             // Write to server
