@@ -79,8 +79,7 @@ public class Main {
             
             // Process 2 arguments
             else {
-
-                // TODO
+                
                 // If the argument entered specified an AI player
                 if(processedOptions[0][0].equals("ai")) {
 
@@ -97,19 +96,56 @@ public class Main {
 
                     } 
 
-                    // Coming soon
-                    // TODO AI vs Client (this machine is server)
-                    // else if() {
+                    // AI vs Client (this machine is server)
+                    else if(processedOptions[1][0].equals("net")) {
 
-                    // }
+                        // Determine how long the server socket timeout should be
+                        int timeout = Integer.parseInt(processedOptions[1][1]);
+
+                        // Get a connection to the network player
+                        NetworkPlayer player = Server.createNetworkPlayer(timeout);
+
+                        // If did not connect to other player, terminate the program
+                        if(player == null) {
+                            System.exit(0);
+                        }
+
+                        // Start the game loop
+                        r.play(aiPlayer1, player);
+
+                    }
 
                 } 
                 
-                // Coming soon
-                // TODO implement Client vs AI ONLY (no client vs client)
-                // else if() {
+                // Client vs AI ONLY (no client vs client)
+                else if(processedOptions[0][0].equals("net")) {
+                    // Determine how long the server socket timeout should be
+                    int timeout = Integer.parseInt(processedOptions[0][1]);
 
-                // }
+                    // Get a connection to the network player
+                    NetworkPlayer player = Server.createNetworkPlayer(timeout);
+
+                    // If did not connect to other player, terminate the program
+                    if(player == null) {
+                        System.exit(0);
+                    }
+
+                    // If the second argument is also an AI player
+                    if(processedOptions[1][0].equals("ai")) {
+
+                        // Create the AI player and play the game
+                        AI aiPlayer2 = createAIPlayer(processedOptions[1][1], b);
+
+                        r.play(aiPlayer2, player);
+
+                    } 
+                    
+                    // Cannot have a game between two clients (... [net] [net] as args)
+                    else {
+                        System.out.println("Networked games between two clients are unavailable");
+                        System.exit(0);
+                    }
+                }
             }
 
         } 

@@ -46,11 +46,6 @@ public class Client {
             InputStreamReader in = new InputStreamReader(s.getInputStream());
             BufferedReader br = new BufferedReader(in);
 
-            // Learn where in the order this client plays
-            int turnNum = br.read();
-            System.out.println("\nYou are player : " + turnNum);
-            System.out.println("The host is player : " + (turnNum == 1 ? 2 : 1));
-
             // Wait 2 seconds to let spectators register which player is who
             try {
                 // Perform the wait
@@ -71,6 +66,20 @@ public class Client {
                 // Read and print all of the game state details recieved from host
                 String line = null;
                 while((line = br.readLine()) != null) {
+
+                    if(line.equals("WAIT")) {
+                        try {
+                            // Perform the wait
+                            TimeUnit.SECONDS.sleep(2);
+                            continue;
+                        } 
+                        
+                        // Should never trigger
+                        catch (InterruptedException e) {
+                            e.printStackTrace();
+                            continue;
+                        }
+                    }
 
                     // Encountered if it's the client's turn to play a move
                     if(line.equals("m")) break;
