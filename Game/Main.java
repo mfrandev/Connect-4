@@ -79,7 +79,7 @@ public class Main {
             
             // Process 2 arguments
             else {
-                
+
                 // If the argument entered specified an AI player
                 if(processedOptions[0][0].equals("ai")) {
 
@@ -119,19 +119,22 @@ public class Main {
                 
                 // Client vs AI ONLY (no client vs client)
                 else if(processedOptions[0][0].equals("net")) {
-                    // Determine how long the server socket timeout should be
-                    int timeout = Integer.parseInt(processedOptions[0][1]);
 
-                    // Get a connection to the network player
-                    NetworkPlayer player = Server.createNetworkPlayer(timeout);
-
-                    // If did not connect to other player, terminate the program
-                    if(player == null) {
-                        System.exit(0);
-                    }
+                    // Formatted like this so server doesn't get create in an invalid argument case
 
                     // If the second argument is also an AI player
                     if(processedOptions[1][0].equals("ai")) {
+
+                        // Determine how long the server socket timeout should be
+                        int timeout = Integer.parseInt(processedOptions[0][1]);
+
+                        // Get a connection to the network player
+                        NetworkPlayer player = Server.createNetworkPlayer(timeout);
+
+                        // If did not connect to other player, terminate the program
+                        if(player == null) {
+                            System.exit(0);
+                        }
 
                         // Create the AI player and play the game
                         AI aiPlayer2 = createAIPlayer(processedOptions[1][1], b);
