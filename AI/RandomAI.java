@@ -4,7 +4,7 @@ import java.util.Random;
 
 import Game.Board;
 
-public class BasicAI extends AI {
+public class RandomAI extends AI {
 
     // Used for selecting random integers within a range
     Random random;
@@ -12,7 +12,7 @@ public class BasicAI extends AI {
     /**
      * Constructor invoques the AI superclass constructor and initializes the random object
      */
-    public BasicAI(Board board) {
+    public RandomAI(Board board) {
         super(board);
         random = new Random();
     }

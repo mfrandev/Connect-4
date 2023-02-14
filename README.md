@@ -17,6 +17,6 @@ Command Line Additional Options
 <br>
 Notes: 
 <ol>
-    <li>Currently available AI levels are: [basic]</li>
+    <li>Currently available AI levels are: [random]</li>
     <li>The timeout value for network games is optional, default set to 60 seconds</li>
 </ol>

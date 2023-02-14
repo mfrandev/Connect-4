@@ -1,7 +1,7 @@
 package Game;
 
 import AI.AI;
-import AI.BasicAI;
+import AI.RandomAI;
 import Network.NetworkPlayer;
 import Network.Server.Server;
 
@@ -25,7 +25,7 @@ public class Main {
         HashMap<String, String[]> validOptions = new HashMap<>();
 
         // These are the valid pairs (not case sensitive)
-        validOptions.put("ai", new String[] {"basic"});
+        validOptions.put("ai", new String[] {"random"});
 
         // If user specified any parameters
         // Too many arguemnts
@@ -304,9 +304,9 @@ public class Main {
      */
     public static AI createAIPlayer(String type, Board b) {
 
-        // Creates a basic AI 
-        if(type.equals("basic")) {
-            return new BasicAI(b);
+        // Creates an AI that makes random moves
+        if(type.equals("random")) {
+            return new RandomAI(b);
         }
 
         // This case should never be executed
