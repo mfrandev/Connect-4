@@ -27,6 +27,18 @@ public class Piece {
     }
 
     /**
+     * Copy this piece for the AI solver
+     */
+    public Piece copy() {
+        Piece p = new Piece(player);
+        p.setHorizontalNumConnected(horizontalNumConnected);
+        p.setVerticalNumConnected(verticalNumConnected);
+        p.setLeftDiagonalNumConnected(leftDiagonalNumConnected);
+        p.setRightDiagonalNumConnected(rightDiagonalNumConnected);
+        return p;
+    }
+
+    /**
      * Set the player that owns this piece
      */
     public void setPlayer(int player) {

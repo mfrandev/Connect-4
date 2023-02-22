@@ -26,6 +26,7 @@ public class Main {
 
         // These are the valid pairs (not case sensitive)
         validOptions.put("ai", new String[] {"random"});
+        validOptions.put("net", new String[] {"[timeout (integer value)]"});
 
         // If user specified any parameters
         // Too many arguemnts
