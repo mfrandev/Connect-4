@@ -2,6 +2,7 @@ package Game;
 
 import AI.AI;
 import AI.RandomAI;
+import AI.SearchAI;
 import Network.NetworkPlayer;
 import Network.Server.Server;
 
@@ -25,7 +26,7 @@ public class Main {
         HashMap<String, String[]> validOptions = new HashMap<>();
 
         // These are the valid pairs (not case sensitive)
-        validOptions.put("ai", new String[] {"random"});
+        validOptions.put("ai", new String[] {"random", "easy", "medium", "hard"});
         validOptions.put("net", new String[] {"[timeout (integer value)]"});
 
         // If user specified any parameters
@@ -308,6 +309,19 @@ public class Main {
         // Creates an AI that makes random moves
         if(type.equals("random")) {
             return new RandomAI(b);
+        } 
+        
+        // Create an AI that uses search with a max-depth of 1
+        else if(type.equals("easy")) {
+            return new SearchAI(b, 1);
+        } 
+        // Create an AI that uses search with a max-depth of 3
+        else if(type.equals("medium")) {
+            return new SearchAI(b, 3);
+        } 
+        // Create an AI that uses search with a max-depth of 5
+        else if(type.equals("hard")) {
+            return new SearchAI(b, 5);
         }
 
         // This case should never be executed
