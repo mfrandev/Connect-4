@@ -313,15 +313,15 @@ public class Main {
         
         // Create an AI that uses search with a max-depth of 1
         else if(type.equals("easy")) {
-            return new SearchAI(b, 1);
+            return new SearchAI(b, 3);
         } 
         // Create an AI that uses search with a max-depth of 3
         else if(type.equals("medium")) {
-            return new SearchAI(b, 3);
+            return new SearchAI(b, 5);
         } 
         // Create an AI that uses search with a max-depth of 5
         else if(type.equals("hard")) {
-            return new SearchAI(b, 5);
+            return new SearchAI(b, 8);
         }
 
         // This case should never be executed

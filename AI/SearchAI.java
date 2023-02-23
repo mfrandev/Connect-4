@@ -52,11 +52,11 @@ public class SearchAI extends AI {
         // Event of a stalemate
         if(board.getNumMovesPlayed() == board.getBoard().length * board.getBoardMap().length) {
             return new int[] {0, -1};
-        }
+        } 
 
         // Typical recursive base case that triggers evaluation for a specific board position
         if(depth == 0) {
-            return new int[] {GameScoreHeuristic.getGameScore(board), -1}
+            return new int[] {GameScoreHeuristic.getGameScore(board), -1};
         }
 
         // Maximizing Player
@@ -70,7 +70,7 @@ public class SearchAI extends AI {
             for(int i = 0; i < board.getBoardMap().length; i++) {
 
                 // If the column is full, do not place a piece there
-                if(board.getBoardMap()[i + 1] == -1) continue;
+                if(board.getBoardMap()[i] == -1) continue;
 
                 // Copy the board and place a new piece
                 Board copy = board.copy();
@@ -107,7 +107,7 @@ public class SearchAI extends AI {
             for(int i = 0; i < board.getBoardMap().length; i++) {
 
                 // If the column is full, do not place a piece there
-                if(board.getBoardMap()[i + 1] == -1) continue;
+                if(board.getBoardMap()[i] == -1) continue;
 
                 // Copy the board and place a new piece
                 Board copy = board.copy();
